@@ -1,0 +1,77 @@
+<!-- /tmp/ansible-netconf/config.xml -->
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <config xmlns="urn:6wind:vrouter">
+    <vrf>
+      <name>main</name>
+      <interface xmlns="urn:6wind:vrouter/interface">
+        <physical>
+          <name>mgmt0</name>
+          <ipv4>
+            <address>
+              <ip>{{mgmt}}/24</ip>
+            </address>
+          </ipv4>
+          <port>pci-b3s0</port>
+        </physical>
+        <physical>
+          <name>{{n_port1}}</name>
+          <ipv4>
+            <address>
+              <ip>{{ip_port1}}/30</ip>
+            </address>
+          </ipv4>
+          <port>{{port1}}</port>
+        </physical>
+        <loopback xmlns="urn:6wind:vrouter/loopback">
+          <name>lo0</name>
+          <ipv4>
+            <address>
+              <ip>{{rid}}/32</ip>
+            </address>
+          </ipv4>
+        </loopback>
+      </interface>
+      <kpi xmlns="urn:6wind:vrouter/kpi">
+        <telegraf xmlns="urn:6wind:vrouter/kpi/telegraf">
+          <metrics>
+            <template>all</template>
+          </metrics>
+          <influxdb-output>
+            <url>http://10.0.0.144:8086</url>
+            <database>telegraf</database>
+          </influxdb-output>
+        </telegraf>
+      </kpi>
+      <routing xmlns="urn:6wind:vrouter/routing">
+        <static>
+          <ipv4-route>
+            <destination>0.0.0.0/0</destination>
+            <next-hop>
+              <next-hop>10.0.0.1</next-hop>
+            </next-hop>
+          </ipv4-route>
+        </static>
+        <interface>
+          <name>lo0</name>
+          <ip>
+            <ospf xmlns="urn:6wind:vrouter/ospf">
+              <area>0.0.0.0</area>
+            </ospf>
+          </ip>
+        </interface>
+        <interface>
+          <name>eth1</name>
+          <ip>
+            <ospf xmlns="urn:6wind:vrouter/ospf">
+              <area>0.0.0.0</area>
+              <network>point-to-point</network>
+            </ospf>
+          </ip>
+        </interface>
+        <ospf xmlns="urn:6wind:vrouter/ospf">
+          <router-id>{{rid}}</router-id>
+        </ospf>
+      </routing>
+    </vrf>
+  </config>
+</config>

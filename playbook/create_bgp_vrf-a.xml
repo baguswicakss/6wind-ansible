@@ -1,0 +1,85 @@
+<!-- /tmp/ansible-netconf/config.xml -->
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <config xmlns="urn:6wind:vrouter">
+    <vrf xmlns="urn:6wind:vrouter">
+      <name>{{vrf1}}</name>
+      <interface xmlns="urn:6wind:vrouter/interface">
+        <physical>
+          <name>{{n_port2}}</name>
+          <ipv4>
+            <address>
+              <ip>{{ip_port2}}/30</ip>
+            </address>
+          </ipv4>
+          <port>{{port2}}</port>
+        </physical>
+        <loopback xmlns="urn:6wind:vrouter/loopback">
+          <name>lo0</name>
+          <ipv4>
+            <address>
+              <ip>{{rid_a}}/32</ip>
+            </address>
+          </ipv4>
+        </loopback>
+        <vlan xmlns="urn:6wind:vrouter/vlan">
+          <name>{{n_port1}}.{{vlan_a}}</name>
+          <ipv4>
+            <address>
+              <ip>{{ip_va}}/30</ip>
+            </address>
+          </ipv4>
+          <vlan-id>{{vlan_a}}</vlan-id>
+          <link-interface>{{n_port1}}</link-interface>
+          <link-vrf>main</link-vrf>
+        </vlan>
+      </interface>
+      <routing xmlns="urn:6wind:vrouter/routing">
+        <interface>
+          <name>{{n_port2}}</name>
+          <ip>
+            <ospf xmlns="urn:6wind:vrouter/ospf">
+              <area>0</area>
+              <network>point-to-point</network>
+            </ospf>
+          </ip>
+        </interface>
+        <interface>
+          <name>lo0</name>
+          <ip>
+            <ospf xmlns="urn:6wind:vrouter/ospf">
+              <area>0</area>
+            </ospf>
+          </ip>
+        </interface>
+        <bgp xmlns="urn:6wind:vrouter/bgp">
+          <as>{{as_a}}</as>
+          <router-id>{{rid_a}}</router-id>
+          <ebgp-requires-policy>false</ebgp-requires-policy>
+          <address-family>
+            <ipv4-unicast>
+              <redistribute>
+                <protocol>connected</protocol>
+              </redistribute>
+              <redistribute>
+                <protocol>ospf</protocol>
+              </redistribute>
+            </ipv4-unicast>
+          </address-family>
+          <neighbor>
+            <neighbor-address>{{hostvars[peer_bgp].ip_va}}</neighbor-address>
+            <remote-as>{{hostvars[peer_bgp].as_a}}</remote-as>
+          </neighbor>
+        </bgp>
+        <ospf xmlns="urn:6wind:vrouter/ospf">
+          <router-id>{{rid_a}}</router-id>
+          <area>
+            <area-id>0</area-id>
+          </area>
+          <redistribute>
+            <protocol>bgp</protocol>
+          </redistribute>
+        </ospf>
+      </routing>
+    </vrf>
+  </config>
+</config>

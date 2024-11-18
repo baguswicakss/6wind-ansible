@@ -1,0 +1,48 @@
+<!-- /tmp/ansible-netconf/config.xml -->
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <config xmlns="urn:6wind:vrouter">
+    <system xmlns="urn:6wind:vrouter/system">
+      <hostname>{{inventory_hostname}}</hostname>
+    </system>
+    <vrf xmlns="urn:6wind:vrouter">
+      <name>main</name>
+      <interface xmlns="urn:6wind:vrouter/interface">
+        <physical>
+          <name>mgmt0</name>
+          <ipv4>
+            <address>
+              <ip>{{mgmt}}/24</ip>
+            </address>
+          </ipv4>
+          <port>pci-b3s0</port>
+        </physical>
+        <physical>
+          <name>eth1</name>
+          <port>{{port1}}</port>
+        </physical>
+      </interface>
+      <kpi xmlns="urn:6wind:vrouter/kpi">
+        <telegraf xmlns="urn:6wind:vrouter/kpi/telegraf">
+          <metrics>
+            <template>all</template>
+          </metrics>
+          <influxdb-output>
+            <url>http://10.0.0.144:8086</url>
+            <database>telegraf</database>
+          </influxdb-output>
+        </telegraf>
+      </kpi>
+      <routing xmlns="urn:6wind:vrouter/routing">
+        <static>
+          <ipv4-route>
+            <destination>0.0.0.0/0</destination>
+            <next-hop>
+              <next-hop>10.0.0.1</next-hop>
+            </next-hop>
+          </ipv4-route>
+        </static>
+        <ospf xmlns="urn:6wind:vrouter/ospf"/>
+      </routing>
+    </vrf>
+  </config>
+</config>	

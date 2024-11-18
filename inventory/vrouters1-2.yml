@@ -1,0 +1,49 @@
+vrouters:
+  vars:
+    ansible_connection: netconf
+    ansible_user: admin
+    ansible_ssh_pass: admin      # using default admin user/password
+    ansible_python_interpreter: python
+  hosts:
+    6wind-1:
+      mgmt: 10.0.0.166
+      peer_bgp: 6wind-2
+      port1: pci-b11s0
+      n_port1: eth1
+      port2: pci-b19s0
+      n_port2: eth2
+      ip_port2: 172.16.13.1
+      port3: pci-b27s0
+      n_port3: eth3
+      ip_port3: 192.168.11.1
+      vrf1: service-a
+      vrf2: service-b
+      vlan_a: 10
+      vlan_b: 20
+      ip_va: 192.168.10.1
+      ip_vb: 192.168.20.1
+      as_a: 65511
+      as_b: 65521
+      rid_a: 10.10.10.1
+      rid_b: 20.20.20.1
+    6wind-2:
+      mgmt: 10.0.0.167
+      peer_bgp: 6wind-1
+      port1: pci-b11s0
+      n_port1: eth1
+      port2: pci-b19s0
+      n_port2: eth2
+      ip_port2: 172.16.24.1
+      port3: pci-b27s0
+      n_port3: eth3
+      ip_port3: 192.168.22.1
+      vrf1: service-a
+      vrf2: service-b
+      vlan_a: 10
+      vlan_b: 20
+      ip_va: 192.168.10.2
+      ip_vb: 192.168.20.2
+      as_a: 65512
+      as_b: 65522
+      rid_a: 10.10.10.2
+      rid_b: 20.20.20.2

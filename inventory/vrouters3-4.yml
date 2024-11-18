@@ -1,0 +1,19 @@
+vrouters:
+  vars:
+    ansible_connection: netconf
+    ansible_user: admin
+    ansible_ssh_pass: admin      # using default admin user/password
+    ansible_python_interpreter: python
+  hosts:
+    6wind-3:
+      mgmt: 10.0.0.169
+      port1: pci-b11s0
+      n_port1: eth1
+      ip_port1: 172.16.13.2
+      rid: 3.3.3.3
+    6wind-4:
+      mgmt: 10.0.0.141
+      port1: pci-b11s0
+      n_port1: eth1
+      ip_port1: 172.16.24.2
+      rid: 4.4.4.4

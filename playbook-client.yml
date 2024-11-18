@@ -1,0 +1,9 @@
+# /tmp/ansible-netconf/playbook.yml
+---
+- hosts: vrouters
+  gather_facts: false  # facts gathering is not supported at the moment
+  tasks:
+  
+    - name: configure vrf main 6wind-3&4
+      netconf_config:
+        content: "{{lookup('template', 'playbook/6wind-client.xml')}}"

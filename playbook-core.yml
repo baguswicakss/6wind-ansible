@@ -1,0 +1,17 @@
+# /tmp/ansible-netconf/playbook.yml
+---
+- hosts: vrouters
+  gather_facts: false  # facts gathering is not supported at the moment
+  tasks:
+
+    - name: Initialize
+      netconf_config:
+        content: "{{lookup('template', 'playbook/init.xml')}}"
+
+    - name: configure BGP vrf service a
+      netconf_config:
+        content: "{{lookup('template', 'playbook/create_bgp_vrf-a.xml')}}"
+
+    - name: configure BGP vrf service b
+      netconf_config:
+        content: "{{lookup('template', 'playbook/create_bgp_vrf-b.xml')}}"
