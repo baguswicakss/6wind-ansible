@@ -8,10 +8,10 @@
       netconf_config:
         content: "{{lookup('template', 'playbook/init.xml')}}"
 
-    - name: configure BGP vrf service a
+    - name: configure vrf service a
       netconf_config:
-        content: "{{lookup('template', 'playbook/create_bgp_vrf-a.xml')}}"
+        content: "{{lookup('template', 'playbook/create_vrf-a.xml')}}"
 
-    - name: configure BGP vrf service b
+    - name: configure vrf service b
       netconf_config:
-        content: "{{lookup('template', 'playbook/create_bgp_vrf-b.xml')}}"
+        content: "{{lookup('template', 'playbook/create_vrf-b.xml')}}"
