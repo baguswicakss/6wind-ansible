@@ -1,18 +1,17 @@
 <!-- /tmp/ansible-netconf/config.xml -->
 <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <config xmlns="urn:6wind:vrouter">
+    <system xmlns="urn:6wind:vrouter/system">
+      <hostname>{{inventory_hostname}}</hostname>
+      <fast-path xmlns="urn:6wind:vrouter/fast-path">
+        <port>pci-b11s0</port>
+        <port>pci-b19s0</port>
+        <port>pci-b3s0</port>
+    </fast-path>
+    </system>
     <vrf>
       <name>main</name>
       <interface xmlns="urn:6wind:vrouter/interface">
-        <physical>
-          <name>mgmt0</name>
-          <ipv4>
-            <address>
-              <ip>{{mgmt}}/24</ip>
-            </address>
-          </ipv4>
-          <port>pci-b3s0</port>
-        </physical>
         <physical>
           <name>{{n_port1}}</name>
           <ipv4>

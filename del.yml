@@ -1,0 +1,9 @@
+- hosts: vrouters
+  gather_facts: false  # facts gathering is not supported at the moment
+  tasks:
+    - name: delete-config
+      netconf_rpc:
+        rpc: delete-config
+        xmlns: 'urn:ietf:params:xml:ns:netconf:base:1.0'
+        content: |
+          <target><startup/></target>

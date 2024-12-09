@@ -6,7 +6,7 @@ vrouters:
     ansible_python_interpreter: python
   hosts:
     6wind-1:
-      mgmt: 10.0.0.166
+      mgmt: 10.0.0.83
       peer_bgp: 6wind-2
       port1: pci-b11s0
       n_port1: eth1
@@ -27,7 +27,7 @@ vrouters:
       rid_a: 10.10.10.1
       rid_b: 20.20.20.1
     6wind-2:
-      mgmt: 10.0.0.167
+      mgmt: 10.0.0.84
       peer_bgp: 6wind-1
       port1: pci-b11s0
       n_port1: eth1

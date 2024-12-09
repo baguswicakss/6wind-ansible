@@ -3,19 +3,16 @@
   <config xmlns="urn:6wind:vrouter">
     <system xmlns="urn:6wind:vrouter/system">
       <hostname>{{inventory_hostname}}</hostname>
+      <fast-path xmlns="urn:6wind:vrouter/fast-path">
+        <port>pci-b11s0</port>
+        <port>pci-b19s0</port>
+        <port>pci-b27s0</port>
+        <port>pci-b3s0</port>
+      </fast-path>
     </system>
     <vrf xmlns="urn:6wind:vrouter">
       <name>main</name>
       <interface xmlns="urn:6wind:vrouter/interface">
-        <physical>
-          <name>mgmt0</name>
-          <ipv4>
-            <address>
-              <ip>{{mgmt}}/24</ip>
-            </address>
-          </ipv4>
-          <port>pci-b3s0</port>
-        </physical>
         <physical>
           <name>eth1</name>
           <port>{{port1}}</port>
